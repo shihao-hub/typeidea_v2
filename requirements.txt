@@ -1,1 +1,2 @@
+# Python Intepreter 3.6
 Django~=1.11
