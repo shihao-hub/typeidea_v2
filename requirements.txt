@@ -1,2 +1,4 @@
 # Python Intepreter 3.6
+-i https://pypi.org/simple/ # https://mirrors.aliyun.com/pypi/simple/, https://pypi.tuna.tsinghua.edu.cn/simple, https://pypi.org/simple/
 Django~=1.11
+-e . # 表示从当前的 setup.py 中查找其他依赖项
