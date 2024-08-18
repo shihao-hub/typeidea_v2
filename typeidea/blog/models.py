@@ -4,6 +4,8 @@ import uuid
 from django.contrib.auth.models import User
 from django.db import models
 
+from shared.model_mixin import CommonModelMixin
+
 const = collections.namedtuple(f"const_{str(uuid.uuid4()).replace('-', '')}", [
     "owner_name"
 ])(**dict(
@@ -12,7 +14,7 @@ const = collections.namedtuple(f"const_{str(uuid.uuid4()).replace('-', '')}", [
 
 
 # -------------------------------------------------------------------------------------------------------------------- #
-class Category(models.Model):
+class Category(CommonModelMixin, models.Model):
     STATUS_NORMAL, STATUS_DELETE = 1, 0
     STATUS_ITEMS = ((STATUS_NORMAL, "正常"), (STATUS_DELETE, "删除"))
 
@@ -26,14 +28,16 @@ class Category(models.Model):
     class Meta:
         verbose_name = verbose_name_plural = "文章分类"
 
+    def __str__(self):
+        return self.name
 
-class Tag(models.Model):
+
+class Tag(CommonModelMixin, models.Model):
     STATUS_NORMAL, STATUS_DELETE = 1, 0
     STATUS_ITEMS = ((STATUS_NORMAL, "正常"), (STATUS_DELETE, "删除"))
 
     name = models.CharField("名称", max_length=50)
     status = models.PositiveIntegerField("状态", default=STATUS_NORMAL, choices=STATUS_ITEMS)
-    is_nav = models.BooleanField("是否为导航", default=False)
     created_time = models.DateTimeField("创建时间", auto_now_add=True)
 
     owner = models.ForeignKey(User, verbose_name=const.owner_name, on_delete=models.CASCADE)
@@ -41,9 +45,12 @@ class Tag(models.Model):
     class Meta:
         verbose_name = verbose_name_plural = "文章标签"
 
+    def __str__(self):
+        return self.name
+
 
 # -------------------------------------------------------------------------------------------------------------------- #
-class Post(models.Model):
+class Post(CommonModelMixin, models.Model):
     STATUS_NORMAL, STATUS_DELETE, STATUS_DRAFT = 1, 0, 2
     STATUS_ITEMS = ((STATUS_NORMAL, "正常"), (STATUS_DELETE, "删除"), (STATUS_DRAFT, "草稿"))
 

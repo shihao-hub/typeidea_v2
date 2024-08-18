@@ -4,6 +4,8 @@ import uuid
 from django.contrib.auth.models import User
 from django.db import models
 
+from shared.model_mixin import CommonModelMixin
+
 const = collections.namedtuple(f"const_{str(uuid.uuid4()).replace('-', '')}", [
     "owner_name"
 ])(**dict(
@@ -12,7 +14,7 @@ const = collections.namedtuple(f"const_{str(uuid.uuid4()).replace('-', '')}", [
 
 
 # -------------------------------------------------------------------------------------------------------------------- #
-class Link(models.Model):
+class Link(CommonModelMixin, models.Model):
     STATUS_NORMAL, STATUS_DELETE = 1, 0
     STATUS_ITEMS = ((STATUS_NORMAL, "正常"), (STATUS_DELETE, "删除"))
 
@@ -29,7 +31,7 @@ class Link(models.Model):
         verbose_name = verbose_name_plural = "友链"
 
 
-class SiderBar(models.Model):
+class SiderBar(CommonModelMixin, models.Model):
     STATUS_SHOW, STATUS_HIDE = 1, 0
     STATUS_ITEMS = ((STATUS_HIDE, "隐藏"), (STATUS_SHOW, "展示"))
     SIDE_TYPE = zip(range(1, 5), ["HTML", "最热文章", "最新文章", "最近评论"])
