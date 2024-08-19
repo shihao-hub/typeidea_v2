@@ -16,9 +16,11 @@ Including another URLconf
 from django.conf.urls import url, include
 from django.contrib import admin
 
+from typeidea.custom_site import custom_admin_site
+
 urlpatterns = [
     url(r"^blog/", include(("blog.urls", "blog"), namespace="blog")),
 
-    url(r'^admin/', admin.site.urls),
-    # 新需求：用户模块的管理应该跟文章分类等数据的管理分开
+    url(r'^superadmin/', admin.site.urls),  # 用户模块的管理（管理用户）
+    url(r'^admin/', custom_admin_site.urls),  # 文章分类等数据的管理（管理业务）
 ]

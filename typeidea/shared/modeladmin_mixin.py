@@ -29,7 +29,9 @@ class SetOwnerToCurrentUserMixin:
 
     def save_model_mixin(self, *args, **kwargs):
         """ save 的时候设置 owner 为当前登录用户 """
+        print("save_model_mixin:")
         request, obj, form, change, *_ = args
         obj.owner = request.user
         # (Q)!: 此处的 self 会定位到谁呢？我感觉这样写有问题啊...
+        print(f"type(self): {type(self)}")
         return super(type(self), self).save_model(*args, **kwargs)

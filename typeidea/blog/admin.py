@@ -6,6 +6,7 @@ from django.utils.html import format_html
 from blog.adminforms import PostAdminForm
 from blog.models import Category, Tag, Post
 from shared.modeladmin_mixin import SetOwnerToCurrentUserMixin
+from typeidea.custom_site import custom_admin_site
 
 
 class CategoryOwnerFilterForPostAdmin(admin.SimpleListFilter):
@@ -37,7 +38,7 @@ class PostInline(admin.TabularInline):
 
 
 # -------------------------------------------------------------------------------------------------------------------- #
-@admin.register(Category)
+@admin.register(Category, site=custom_admin_site)
 class CategoryAdmin(SetOwnerToCurrentUserMixin, admin.ModelAdmin):
     inlines = (PostInline,)
     # (N)!: list_display 是一个元组或列表，用于定义在模型的列表页面中显示哪些字段
@@ -53,7 +54,7 @@ class CategoryAdmin(SetOwnerToCurrentUserMixin, admin.ModelAdmin):
         return self.save_model_mixin(*args, **kwargs)
 
 
-@admin.register(Tag)
+@admin.register(Tag, site=custom_admin_site)
 class TagAdmin(SetOwnerToCurrentUserMixin, admin.ModelAdmin):
     list_display = ("name", "status", "created_time",)
     fields = ("name", "status",)
@@ -62,7 +63,7 @@ class TagAdmin(SetOwnerToCurrentUserMixin, admin.ModelAdmin):
         return self.save_model_mixin(*args, **kwargs)
 
 
-@admin.register(Post)
+@admin.register(Post, site=custom_admin_site)
 class PostAdmin(SetOwnerToCurrentUserMixin, admin.ModelAdmin):
     form = PostAdminForm  # (Q)!: 此处的作用应该是接受其他地方发来的数据然后存储？
     list_display = ("title", "status", "category", "show_tags", "custom_operator", "owner", "created_time",)
@@ -104,7 +105,7 @@ class PostAdmin(SetOwnerToCurrentUserMixin, admin.ModelAdmin):
     # save_on_top = True
 
     def custom_operator(self, obj):
-        return format_html("<a href='{}'>编辑</a>", reverse("admin:blog_post_change", args=(obj.id,)))
+        return format_html("<a href='{}'>编辑</a>", reverse("custom_admin:blog_post_change", args=(obj.id,)))
 
     custom_operator.short_description = "操作"
 

@@ -32,3 +32,11 @@ typeidea_v2
 2、python interpreter 3.6
 
 # 五、其他
+1、https://github.com/the5fire/django-xadmin/releases
+
+下载 xadmin ...
+
+pip install https://github.com/the5fire/django-xadmin/archive/0.6.1.tar.gz
+
+下面这个不存在了...
+pip install git+https://github.com/sshwsfc/xadmin@697a658
