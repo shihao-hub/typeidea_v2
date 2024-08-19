@@ -70,3 +70,6 @@ class Post(CommonModelMixin, models.Model):
     class Meta:
         verbose_name = verbose_name_plural = "文章"
         ordering = ["-id"]
+
+    def __str__(self):
+        return f"{self.title} - {self.owner}"
