@@ -29,6 +29,6 @@ typeidea_v2
 
 《Django 企业开发实战》83 页
 
-2、
+2、python interpreter 3.6
 
 # 五、其他
