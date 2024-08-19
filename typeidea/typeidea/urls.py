@@ -20,4 +20,5 @@ urlpatterns = [
     url(r"^blog/", include(("blog.urls", "blog"), namespace="blog")),
 
     url(r'^admin/', admin.site.urls),
+    # 新需求：用户模块的管理应该跟文章分类等数据的管理分开
 ]
